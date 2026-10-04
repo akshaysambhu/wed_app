@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { VENDORS, VENDOR_CATEGORIES } from '../data/mockData.js';
 import { usePlanning } from '../context/PlanningContext.jsx';
 
@@ -160,12 +161,12 @@ export default function VendorDiscovery() {
                     <span>{inCompare ? '✓ In Compare' : '＋ Compare'}</span>
                   </button>
 
-                  <button
-                    onClick={() => openModal('itemDetail', vendor)}
+                  <Link
+                    to={vendor.id === 'vendor-1' ? '/vendor/stories-by-amal' : `/vendor/${vendor.id}`}
                     className="flex-1 py-2 px-3 text-xs font-medium rounded-xl bg-[#1C1917] hover:bg-[#34302C] text-white transition-colors text-center"
                   >
                     View Profile
-                  </button>
+                  </Link>
                 </div>
               </div>
             );

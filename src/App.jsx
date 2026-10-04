@@ -1,4 +1,5 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { usePlanning } from './context/PlanningContext.jsx';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
@@ -26,6 +27,32 @@ import SearchOverlay from './components/modals/SearchOverlay.jsx';
 import DashboardModal from './components/modals/DashboardModal.jsx';
 import ItemDetailModal from './components/modals/ItemDetailModal.jsx';
 
+// Pages
+import VendorPage from './pages/VendorPage.jsx';
+
+// Homepage layout
+function HomePage() {
+  return (
+    <main>
+      <Hero />
+      <InspirationSection />
+      <RealWeddingsSection />
+      <PeopleBehindMoments />
+      <VendorDiscovery />
+      <VenueDiscovery />
+      <ServicesDiscovery />
+      <SaveDecideLater />
+      <NotesSection />
+      <DashboardPreview />
+      <CompareSection />
+      <JourneyStages />
+      <MoreMomentsMasonry />
+      <FinalCTA />
+      <Footer />
+    </main>
+  );
+}
+
 export default function App() {
   const { activeModal, toast } = usePlanning();
 
@@ -34,53 +61,11 @@ export default function App() {
       {/* Global Navigation */}
       <Navbar />
 
-      {/* Main Content Layout */}
-      <main>
-        {/* Section 2: Hero */}
-        <Hero />
-
-        {/* Section 3: Start with Inspiration */}
-        <InspirationSection />
-
-        {/* Section 4: Real Weddings */}
-        <RealWeddingsSection />
-
-        {/* Section 5: Discover the People Behind the Moments */}
-        <PeopleBehindMoments />
-
-        {/* Section 6: Vendor Discovery */}
-        <VendorDiscovery />
-
-        {/* Section 7: Venue Discovery */}
-        <VenueDiscovery />
-
-        {/* Section 8: Services Discovery */}
-        <ServicesDiscovery />
-
-        {/* Section 9: Save It Now, Decide Later */}
-        <SaveDecideLater />
-
-        {/* Section 10: Notes / Couple Planning */}
-        <NotesSection />
-
-        {/* Section 11: Planning Dashboard Preview */}
-        <DashboardPreview />
-
-        {/* Section 12: Compare Before You Choose */}
-        <CompareSection />
-
-        {/* Section 13: From Inspiration to Action */}
-        <JourneyStages />
-
-        {/* Section 14: Continuous Discovery Masonry */}
-        <MoreMomentsMasonry />
-
-        {/* Section 15: Final CTA */}
-        <FinalCTA />
-      </main>
-
-      {/* Section 16: Footer */}
-      <Footer />
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/vendor/:id" element={<VendorPage />} />
+      </Routes>
 
       {/* Active Modal Controllers */}
       {activeModal?.type === 'saved' && <SavedDrawer />}
@@ -91,11 +76,11 @@ export default function App() {
       {activeModal?.type === 'dashboard' && <DashboardModal />}
       {activeModal?.type === 'itemDetail' && <ItemDetailModal />}
 
-      {/* Floating Interactive Toast Message */}
+      {/* Floating Toast */}
       {toast && (
         <div className="fixed bottom-6 right-6 z-50 animate-bounceIn">
           <div className="bg-[#1C1917] text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-2.5 border border-[#34302C]">
-            <span className="w-2 h-2 rounded-full bg-[#8E4A49]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#8E4A49]" />
             <span>{toast.message}</span>
           </div>
         </div>
