@@ -15,6 +15,10 @@ import VendorPage from './pages/vendor/VendorPage.jsx';
 import ShortlistPage from './pages/ShortlistPage.jsx';
 import FinalisedPage from './pages/FinalisedPage.jsx';
 import StartPlanningPage from './pages/StartPlanningPage.jsx';
+import StoriesPage from './pages/StoriesPage.jsx';
+import VendorsPage from './pages/VendorsPage.jsx';
+import HowItWorksPage from './pages/HowItWorksPage.jsx';
+import DiscussionPage from './pages/DiscussionPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -44,7 +48,10 @@ export default function App() {
         <Route path="/shortlist"      element={<ShortlistPage />} />
         <Route path="/finalised"      element={<FinalisedPage />} />
         <Route path="/start-planning" element={<StartPlanningPage />} />
-        {/* Phase 5 routes: /stories, /vendors, etc. */}
+        <Route path="/stories"        element={<StoriesPage />} />
+        <Route path="/vendors"        element={<VendorsPage />} />
+        <Route path="/how-it-works"   element={<HowItWorksPage />} />
+        <Route path="/discussion"     element={<DiscussionPage />} />
       </Routes>
 
       {/* Global Footer */}
