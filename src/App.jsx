@@ -23,6 +23,7 @@ import RealWeddingModal from './components/modals/RealWeddingModal.jsx';
 import SearchOverlay from './components/modals/SearchOverlay.jsx';
 import DashboardModal from './components/modals/DashboardModal.jsx';
 import ItemDetailModal from './components/modals/ItemDetailModal.jsx';
+import DiscussionWindow from './components/discussion/DiscussionWindow.jsx';
 
 // Pages without footer (vendor page has its own layout)
 const NO_FOOTER_ROUTES = ['/vendor/'];
@@ -65,6 +66,9 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* ── Discussion Window ───────────────────────── */}
+      <DiscussionWindow />
     </div>
   );
 }

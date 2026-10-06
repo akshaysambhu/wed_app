@@ -44,6 +44,7 @@ export default {
         fadeIn: 'fadeIn 0.25s ease-out forwards',
         slideLeft: 'slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         bounceIn: 'bounceIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        slideUp: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
       },
       keyframes: {
         fadeIn: {
@@ -57,6 +58,10 @@ export default {
         bounceIn: {
           '0%': { transform: 'translateY(20px) scale(0.95)', opacity: '0' },
           '100%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
         }
       }
     },
