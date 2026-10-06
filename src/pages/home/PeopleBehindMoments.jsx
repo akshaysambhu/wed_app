@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { usePlanning } from '../context/PlanningContext.jsx';
-import { VENDORS, VENUES } from '../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
+import { VENDORS, VENUES } from '../../data/mockData.js';
 
 export default function PeopleBehindMoments() {
   const { openModal, toggleSave, isSaved } = usePlanning();

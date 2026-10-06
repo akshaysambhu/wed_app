@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function Hero() {
   const { openModal, setSearchQuery } = usePlanning();

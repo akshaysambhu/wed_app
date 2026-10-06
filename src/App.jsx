@@ -1,22 +1,21 @@
+/**
+ * App.jsx — Root application with routing
+ * Routes:
+ *   /                    → HomePage
+ *   /vendor/:id          → VendorPage
+ *   (More routes added in Phase 2+)
+ */
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { usePlanning } from './context/PlanningContext.jsx';
-import Navbar from './components/Navbar.jsx';
-import Hero from './components/Hero.jsx';
-import InspirationSection from './components/InspirationSection.jsx';
-import RealWeddingsSection from './components/RealWeddingsSection.jsx';
-import PeopleBehindMoments from './components/PeopleBehindMoments.jsx';
-import VendorDiscovery from './components/VendorDiscovery.jsx';
-import VenueDiscovery from './components/VenueDiscovery.jsx';
-import ServicesDiscovery from './components/ServicesDiscovery.jsx';
-import SaveDecideLater from './components/SaveDecideLater.jsx';
-import NotesSection from './components/NotesSection.jsx';
-import DashboardPreview from './components/DashboardPreview.jsx';
-import CompareSection from './components/CompareSection.jsx';
-import JourneyStages from './components/JourneyStages.jsx';
-import MoreMomentsMasonry from './components/MoreMomentsMasonry.jsx';
-import FinalCTA from './components/FinalCTA.jsx';
-import Footer from './components/Footer.jsx';
+
+// Layout
+import Navbar from './components/layout/Navbar.jsx';
+import Footer from './components/layout/Footer.jsx';
+
+// Pages
+import HomePage from './pages/home/HomePage.jsx';
+import VendorPage from './pages/vendor/VendorPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -27,60 +26,38 @@ import SearchOverlay from './components/modals/SearchOverlay.jsx';
 import DashboardModal from './components/modals/DashboardModal.jsx';
 import ItemDetailModal from './components/modals/ItemDetailModal.jsx';
 
-// Pages
-import VendorPage from './pages/VendorPage.jsx';
-
-// Homepage layout
-function HomePage() {
-  return (
-    <main>
-      <Hero />
-      <InspirationSection />
-      <RealWeddingsSection />
-      <PeopleBehindMoments />
-      <VendorDiscovery />
-      <VenueDiscovery />
-      <ServicesDiscovery />
-      <SaveDecideLater />
-      <NotesSection />
-      <DashboardPreview />
-      <CompareSection />
-      <JourneyStages />
-      <MoreMomentsMasonry />
-      <FinalCTA />
-      <Footer />
-    </main>
-  );
-}
-
 export default function App() {
   const { activeModal, toast } = usePlanning();
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1C1917] font-sans selection:bg-[#E8D4CF] selection:text-[#6B3037] relative">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1C1917] font-sans selection:bg-[#E8D4CF] selection:text-[#6B3037]">
       {/* Global Navigation */}
       <Navbar />
 
-      {/* Routes */}
+      {/* Page Routes */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/vendor/:id" element={<VendorPage />} />
+        {/* Phase 2 routes will be added here: /shortlist, /finalised, /start-planning */}
       </Routes>
 
-      {/* Active Modal Controllers */}
-      {activeModal?.type === 'saved' && <SavedDrawer />}
-      {activeModal?.type === 'compare' && <CompareModal />}
-      {activeModal?.type === 'notes' && <NotesDrawer />}
-      {activeModal?.type === 'realWedding' && <RealWeddingModal />}
-      {activeModal?.type === 'search' && <SearchOverlay />}
-      {activeModal?.type === 'dashboard' && <DashboardModal />}
-      {activeModal?.type === 'itemDetail' && <ItemDetailModal />}
+      {/* Global Footer — shown on all pages */}
+      <Footer />
 
-      {/* Floating Toast */}
+      {/* ── Modal Layer ────────────────────────────────── */}
+      {activeModal?.type === 'saved'       && <SavedDrawer />}
+      {activeModal?.type === 'compare'     && <CompareModal />}
+      {activeModal?.type === 'notes'       && <NotesDrawer />}
+      {activeModal?.type === 'realWedding' && <RealWeddingModal />}
+      {activeModal?.type === 'search'      && <SearchOverlay />}
+      {activeModal?.type === 'dashboard'   && <DashboardModal />}
+      {activeModal?.type === 'itemDetail'  && <ItemDetailModal />}
+
+      {/* ── Toast Notification ─────────────────────────── */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 animate-bounceIn">
-          <div className="bg-[#1C1917] text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-2.5 border border-[#34302C]">
-            <span className="w-2 h-2 rounded-full bg-[#8E4A49]" />
+        <div className="fixed bottom-6 right-6 z-[60] animate-bounceIn">
+          <div className="bg-[#1C1917] text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-[#34302C]">
+            <span className="w-2 h-2 rounded-full bg-[#8E4A49] flex-shrink-0" />
             <span>{toast.message}</span>
           </div>
         </div>

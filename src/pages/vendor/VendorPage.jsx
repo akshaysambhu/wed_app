@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { usePlanning } from '../context/PlanningContext.jsx';
-import { STORIES_BY_AMAL } from '../data/vendorData.js';
-import VendorHero from '../components/vendor/VendorHero.jsx';
-import VendorGallery from '../components/vendor/VendorGallery.jsx';
-import VendorAbout from '../components/vendor/VendorAbout.jsx';
-import VendorPackages from '../components/vendor/VendorPackages.jsx';
-import VendorReviews from '../components/vendor/VendorReviews.jsx';
-import VendorAvailability from '../components/vendor/VendorAvailability.jsx';
-import VendorFAQ from '../components/vendor/VendorFAQ.jsx';
-import VendorSimilar from '../components/vendor/VendorSimilar.jsx';
-import VendorStickyActions from '../components/vendor/VendorStickyActions.jsx';
-import EnquiryModal from '../components/modals/EnquiryModal.jsx';
+import { usePlanning } from '../../context/PlanningContext.jsx';
+import { STORIES_BY_AMAL } from '../../data/vendorData.js';
+import VendorHero from '../../components/vendor/VendorHero.jsx';
+import VendorGallery from '../../components/vendor/VendorGallery.jsx';
+import VendorAbout from '../../components/vendor/VendorAbout.jsx';
+import VendorPackages from '../../components/vendor/VendorPackages.jsx';
+import VendorReviews from '../../components/vendor/VendorReviews.jsx';
+import VendorAvailability from '../../components/vendor/VendorAvailability.jsx';
+import VendorFAQ from '../../components/vendor/VendorFAQ.jsx';
+import VendorSimilar from '../../components/vendor/VendorSimilar.jsx';
+import VendorStickyActions from '../../components/vendor/VendorStickyActions.jsx';
+import EnquiryModal from '../../components/modals/EnquiryModal.jsx';
 
 export default function VendorPage() {
   const { id } = useParams();

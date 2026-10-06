@@ -1,153 +1,163 @@
-// React Context for Plan My Moments state management
+// PlanningContext.jsx — Central state management for Plan My Moments
 import { createContext, useContext, useState, useEffect } from 'react';
 import { INSPIRATIONS, VENDORS, VENUES, INITIAL_NOTES, DASHBOARD_INITIAL_STATE } from '../data/mockData.js';
 
 export const PlanningContext = createContext();
 
 export function PlanningProvider({ children }) {
-  // Saved / Favourites State (persisted in localStorage)
+
+  // ─── SAVED / FAVOURITES ────────────────────────────────────────────────────
   const [savedItems, setSavedItems] = useState(() => {
-    try {
-      const stored = localStorage.getItem('pmm_saved_items');
-      return stored ? JSON.parse(stored) : [INSPIRATIONS[0], INSPIRATIONS[2], VENDORS[0]];
-    } catch (e) {
-      return [INSPIRATIONS[0], INSPIRATIONS[2], VENDORS[0]];
-    }
+    try { return JSON.parse(localStorage.getItem('pmm_saved_items')) || [INSPIRATIONS[0], VENDORS[0]]; }
+    catch { return [INSPIRATIONS[0], VENDORS[0]]; }
   });
 
-  // Compare Tray State (persisted in localStorage)
+  // ─── SHORTLIST (Considering for event) ─────────────────────────────────────
+  const [shortlistItems, setShortlistItems] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('pmm_shortlist')) || []; }
+    catch { return []; }
+  });
+
+  // ─── FINALISED (Chosen vendors) ────────────────────────────────────────────
+  const [finalisedItems, setFinalisedItems] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('pmm_finalised')) || []; }
+    catch { return []; }
+  });
+
+  // ─── COMPARE TRAY ──────────────────────────────────────────────────────────
   const [compareItems, setCompareItems] = useState(() => {
-    try {
-      const stored = localStorage.getItem('pmm_compare_items');
-      return stored ? JSON.parse(stored) : [VENDORS[0], VENDORS[3], VENDORS[4]];
-    } catch (e) {
-      return [VENDORS[0], VENDORS[3], VENDORS[4]];
-    }
+    try { return JSON.parse(localStorage.getItem('pmm_compare_items')) || [VENDORS[0], VENDORS[3]]; }
+    catch { return [VENDORS[0], VENDORS[3]]; }
   });
 
-  // Notes State (persisted in localStorage)
+  // ─── NOTES (Simple notes — will be replaced by Discussion in Phase 3) ──────
   const [notes, setNotes] = useState(() => {
-    try {
-      const stored = localStorage.getItem('pmm_notes');
-      return stored ? JSON.parse(stored) : INITIAL_NOTES;
-    } catch (e) {
-      return INITIAL_NOTES;
-    }
+    try { return JSON.parse(localStorage.getItem('pmm_notes')) || INITIAL_NOTES; }
+    catch { return INITIAL_NOTES; }
   });
 
-  // Dashboard State (persisted in localStorage)
+  // ─── DASHBOARD ─────────────────────────────────────────────────────────────
   const [dashboardState, setDashboardState] = useState(() => {
-    try {
-      const stored = localStorage.getItem('pmm_dashboard');
-      return stored ? JSON.parse(stored) : DASHBOARD_INITIAL_STATE;
-    } catch (e) {
-      return DASHBOARD_INITIAL_STATE;
-    }
+    try { return JSON.parse(localStorage.getItem('pmm_dashboard')) || DASHBOARD_INITIAL_STATE; }
+    catch { return DASHBOARD_INITIAL_STATE; }
   });
 
-  // Active Modals & Overlays
-  const [activeModal, setActiveModal] = useState(null); // { type, data }
+  // ─── DISCUSSION STATE ───────────────────────────────────────────────────────
+  const [discussionOpen, setDiscussionOpen] = useState(false);
+  const [discussionAttachment, setDiscussionAttachment] = useState(null); // { item, type }
+
+  // ─── MODALS ────────────────────────────────────────────────────────────────
+  const [activeModal, setActiveModal] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState(null);
 
-  // Sync to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem('pmm_saved_items', JSON.stringify(savedItems));
-    } catch (e) {}
-  }, [savedItems]);
+  // ─── PERSIST TO LOCALSTORAGE ───────────────────────────────────────────────
+  useEffect(() => { try { localStorage.setItem('pmm_saved_items', JSON.stringify(savedItems)); } catch {} }, [savedItems]);
+  useEffect(() => { try { localStorage.setItem('pmm_shortlist', JSON.stringify(shortlistItems)); } catch {} }, [shortlistItems]);
+  useEffect(() => { try { localStorage.setItem('pmm_finalised', JSON.stringify(finalisedItems)); } catch {} }, [finalisedItems]);
+  useEffect(() => { try { localStorage.setItem('pmm_compare_items', JSON.stringify(compareItems)); } catch {} }, [compareItems]);
+  useEffect(() => { try { localStorage.setItem('pmm_notes', JSON.stringify(notes)); } catch {} }, [notes]);
+  useEffect(() => { try { localStorage.setItem('pmm_dashboard', JSON.stringify(dashboardState)); } catch {} }, [dashboardState]);
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('pmm_compare_items', JSON.stringify(compareItems));
-    } catch (e) {}
-  }, [compareItems]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('pmm_notes', JSON.stringify(notes));
-    } catch (e) {}
-  }, [notes]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('pmm_dashboard', JSON.stringify(dashboardState));
-    } catch (e) {}
-  }, [dashboardState]);
-
-  // Toast Helper
-  const showToast = (message, icon = 'check') => {
-    setToast({ message, icon, id: Date.now() });
-    setTimeout(() => {
-      setToast(null);
-    }, 3200);
+  // ─── TOAST ─────────────────────────────────────────────────────────────────
+  const showToast = (message) => {
+    setToast({ message, id: Date.now() });
+    setTimeout(() => setToast(null), 3200);
   };
 
-  // Saved Items Helpers
-  const isSaved = (id) => savedItems.some((item) => item.id === id);
-
+  // ─── SAVED HELPERS ─────────────────────────────────────────────────────────
+  const isSaved = (id) => savedItems.some((i) => i.id === id);
   const toggleSave = (item) => {
     if (isSaved(item.id)) {
       setSavedItems((prev) => prev.filter((i) => i.id !== item.id));
-      showToast(`Removed "${item.title || item.name}" from Saved`, 'heart-off');
+      showToast(`Removed "${item.title || item.name}" from Saved`);
     } else {
       setSavedItems((prev) => [...prev, item]);
-      showToast(`Saved "${item.title || item.name}" to your collection`, 'heart');
+      showToast(`Saved "${item.title || item.name}" to your collection`);
     }
   };
 
-  // Compare Items Helpers
-  const isInCompare = (id) => compareItems.some((item) => item.id === id);
+  // ─── SHORTLIST HELPERS ─────────────────────────────────────────────────────
+  const isShortlisted = (id) => shortlistItems.some((i) => i.id === id);
+  const toggleShortlist = (item) => {
+    if (isShortlisted(item.id)) {
+      setShortlistItems((prev) => prev.filter((i) => i.id !== item.id));
+      showToast(`Removed "${item.name}" from Shortlist`);
+    } else {
+      setShortlistItems((prev) => [...prev, { ...item, status: 'shortlisted', addedAt: Date.now() }]);
+      showToast(`"${item.name}" added to Shortlist ✓`);
+    }
+  };
 
+  // ─── FINALISED HELPERS ─────────────────────────────────────────────────────
+  const isFinalised = (id) => finalisedItems.some((i) => i.id === id);
+  const finaliseVendor = (item) => {
+    if (!isFinalised(item.id)) {
+      setFinalisedItems((prev) => [...prev, { ...item, status: 'waiting', finalisedAt: Date.now() }]);
+      setShortlistItems((prev) => prev.filter((i) => i.id !== item.id)); // remove from shortlist
+      showToast(`"${item.name}" added to your Final Crew! 🎉`);
+    }
+  };
+  const updateFinalisedStatus = (id, status) => {
+    setFinalisedItems((prev) => prev.map((i) => i.id === id ? { ...i, status } : i));
+  };
+  const removeFromFinalised = (id) => {
+    setFinalisedItems((prev) => prev.filter((i) => i.id !== id));
+  };
+
+  // ─── COMPARE HELPERS ───────────────────────────────────────────────────────
+  const isInCompare = (id) => compareItems.some((i) => i.id === id);
   const toggleCompare = (item) => {
     if (isInCompare(item.id)) {
       setCompareItems((prev) => prev.filter((i) => i.id !== item.id));
-      showToast(`Removed from comparison`, 'minus');
+      showToast('Removed from comparison');
     } else {
-      if (compareItems.length >= 4) {
-        showToast(`Comparison list full (max 4 items)`, 'alert');
-        return;
-      }
+      if (compareItems.length >= 4) { showToast('Compare list full (max 4)'); return; }
       setCompareItems((prev) => [...prev, item]);
-      showToast(`Added "${item.name || item.title}" to compare`, 'check');
+      showToast(`Added "${item.name || item.title}" to compare`);
     }
   };
+  const removeFromCompare = (id) => setCompareItems((prev) => prev.filter((i) => i.id !== id));
 
-  const removeFromCompare = (id) => {
-    setCompareItems((prev) => prev.filter((item) => item.id !== id));
-    showToast(`Removed from comparison`, 'minus');
-  };
-
-  // Notes Helpers
+  // ─── NOTES HELPERS ─────────────────────────────────────────────────────────
   const addNote = (newNote) => {
     const noteObj = {
       id: `note-${Date.now()}`,
-      author: newNote.author || 'Anjali',
+      author: newNote.author || 'You',
       type: newNote.isDecision ? 'shared_decision' : 'partner_note',
       title: newNote.title || 'Untitled Note',
       content: newNote.content,
       targetTitle: newNote.targetTitle || 'General Planning',
       date: 'Just now',
-      isDecision: Boolean(newNote.isDecision)
+      isDecision: Boolean(newNote.isDecision),
     };
     setNotes((prev) => [noteObj, ...prev]);
-    showToast(newNote.isDecision ? 'Shared decision recorded' : 'Note added for partner to review', 'pen-tool');
+    showToast(newNote.isDecision ? 'Shared decision recorded' : 'Note added');
   };
 
-  // Task Toggle
+  // ─── DASHBOARD HELPERS ─────────────────────────────────────────────────────
   const toggleTask = (taskId) => {
     setDashboardState((prev) => ({
       ...prev,
-      tasks: prev.tasks.map((t) => (t.id === taskId ? { ...t, completed: !t.completed } : t))
+      tasks: prev.tasks.map((t) => (t.id === taskId ? { ...t, completed: !t.completed } : t)),
     }));
   };
 
-  // Modal Handlers
+  // ─── DISCUSSION HELPERS ────────────────────────────────────────────────────
+  const openDiscussion = (attachment = null) => {
+    setDiscussionAttachment(attachment);
+    setDiscussionOpen(true);
+  };
+  const closeDiscussion = () => {
+    setDiscussionOpen(false);
+    setDiscussionAttachment(null);
+  };
+
+  // ─── MODAL HELPERS ─────────────────────────────────────────────────────────
   const openModal = (type, data = null) => {
     setActiveModal({ type, data });
     document.body.style.overflow = 'hidden';
   };
-
   const closeModal = () => {
     setActiveModal(null);
     document.body.style.overflow = '';
@@ -156,24 +166,26 @@ export function PlanningProvider({ children }) {
   return (
     <PlanningContext.Provider
       value={{
-        savedItems,
-        isSaved,
-        toggleSave,
-        compareItems,
-        isInCompare,
-        toggleCompare,
-        removeFromCompare,
-        notes,
-        addNote,
-        dashboardState,
-        toggleTask,
-        activeModal,
-        openModal,
-        closeModal,
-        searchQuery,
-        setSearchQuery,
-        toast,
-        showToast
+        // Saved
+        savedItems, isSaved, toggleSave,
+        // Shortlist
+        shortlistItems, isShortlisted, toggleShortlist,
+        // Finalised
+        finalisedItems, isFinalised, finaliseVendor, updateFinalisedStatus, removeFromFinalised,
+        // Compare
+        compareItems, isInCompare, toggleCompare, removeFromCompare,
+        // Notes
+        notes, addNote,
+        // Dashboard
+        dashboardState, toggleTask,
+        // Discussion
+        discussionOpen, discussionAttachment, openDiscussion, closeDiscussion,
+        // Modals
+        activeModal, openModal, closeModal,
+        // Search
+        searchQuery, setSearchQuery,
+        // Toast
+        toast, showToast,
       }}
     >
       {children}

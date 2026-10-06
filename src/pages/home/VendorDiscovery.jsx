@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { VENDORS, VENDOR_CATEGORIES } from '../data/mockData.js';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { VENDORS, VENDOR_CATEGORIES } from '../../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function VendorDiscovery() {
   const { isSaved, toggleSave, isInCompare, toggleCompare, openModal } = usePlanning();

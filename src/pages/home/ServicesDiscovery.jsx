@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SERVICE_DETAILS } from '../data/mockData.js';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { SERVICE_DETAILS } from '../../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function ServicesDiscovery() {
   const { openModal } = usePlanning();

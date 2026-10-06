@@ -1,6 +1,6 @@
 import React from 'react';
-import { VENUES } from '../data/mockData.js';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { VENUES } from '../../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function VenueDiscovery() {
   const { isSaved, toggleSave, isInCompare, toggleCompare, openModal } = usePlanning();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { INSPIRATIONS } from '../data/mockData.js';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { INSPIRATIONS } from '../../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function MoreMomentsMasonry() {
   const { isSaved, toggleSave, openModal } = usePlanning();

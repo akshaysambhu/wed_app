@@ -1,6 +1,6 @@
 import React from 'react';
-import { REAL_WEDDINGS } from '../data/mockData.js';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { REAL_WEDDINGS } from '../../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function RealWeddingsSection() {
   const { openModal } = usePlanning();

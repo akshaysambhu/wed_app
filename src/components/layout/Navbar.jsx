@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function Navbar() {
   const { savedItems, compareItems, openModal } = usePlanning();

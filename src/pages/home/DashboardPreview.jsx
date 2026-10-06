@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePlanning } from '../context/PlanningContext.jsx';
+import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function DashboardPreview() {
   const { dashboardState, savedItems, compareItems, notes, openModal } = usePlanning();

@@ -1,6 +1,6 @@
 import React from 'react';
-import { usePlanning } from '../context/PlanningContext.jsx';
-import { VENDORS } from '../data/mockData.js';
+import { usePlanning } from '../../context/PlanningContext.jsx';
+import { VENDORS } from '../../data/mockData.js';
 
 export default function CompareSection() {
   const { openModal } = usePlanning();
