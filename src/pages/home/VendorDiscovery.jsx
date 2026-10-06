@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VENDORS, VENDOR_CATEGORIES } from '../../data/mockData.js';
 import { usePlanning } from '../../context/PlanningContext.jsx';
+import ShortlistButton from '../../components/ui/ShortlistButton.jsx';
+import DiscussButton from '../../components/ui/DiscussButton.jsx';
 
 export default function VendorDiscovery() {
-  const { isSaved, toggleSave, isInCompare, toggleCompare, openModal } = usePlanning();
+  const { isSaved, toggleSave, isInCompare, toggleCompare, openModal, isShortlisted } = usePlanning();
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredVendors = selectedCategory === 'All'
@@ -150,17 +152,8 @@ export default function VendorDiscovery() {
 
                 {/* Card Action Footer */}
                 <div className="px-5 pb-5 pt-0 flex items-center gap-2">
-                  <button
-                    onClick={() => toggleCompare(vendor)}
-                    className={`flex-1 py-2 px-3 text-xs font-medium rounded-xl border transition-all flex items-center justify-center space-x-1 ${
-                      inCompare
-                        ? 'bg-[#6B3037] text-white border-[#6B3037]'
-                        : 'bg-white text-[#1C1917] border-[#EAE3DA] hover:bg-[#F4EFEA]'
-                    }`}
-                  >
-                    <span>{inCompare ? '✓ In Compare' : '＋ Compare'}</span>
-                  </button>
-
+                  <ShortlistButton vendor={vendor} className="flex-1" />
+                  <DiscussButton item={vendor} type="vendor" className="flex-1" />
                   <Link
                     to={vendor.id === 'vendor-1' ? '/vendor/stories-by-amal' : `/vendor/${vendor.id}`}
                     className="flex-1 py-2 px-3 text-xs font-medium rounded-xl bg-[#1C1917] hover:bg-[#34302C] text-white transition-colors text-center"
@@ -168,6 +161,7 @@ export default function VendorDiscovery() {
                     View Profile
                   </Link>
                 </div>
+
               </div>
             );
           })}

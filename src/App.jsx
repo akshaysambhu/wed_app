@@ -1,9 +1,5 @@
 /**
  * App.jsx — Root application with routing
- * Routes:
- *   /                    → HomePage
- *   /vendor/:id          → VendorPage
- *   (More routes added in Phase 2+)
  */
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -16,6 +12,8 @@ import Footer from './components/layout/Footer.jsx';
 // Pages
 import HomePage from './pages/home/HomePage.jsx';
 import VendorPage from './pages/vendor/VendorPage.jsx';
+import ShortlistPage from './pages/ShortlistPage.jsx';
+import FinalisedPage from './pages/FinalisedPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -25,6 +23,9 @@ import RealWeddingModal from './components/modals/RealWeddingModal.jsx';
 import SearchOverlay from './components/modals/SearchOverlay.jsx';
 import DashboardModal from './components/modals/DashboardModal.jsx';
 import ItemDetailModal from './components/modals/ItemDetailModal.jsx';
+
+// Pages without footer (vendor page has its own layout)
+const NO_FOOTER_ROUTES = ['/vendor/'];
 
 export default function App() {
   const { activeModal, toast } = usePlanning();
@@ -36,15 +37,17 @@ export default function App() {
 
       {/* Page Routes */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/vendor/:id" element={<VendorPage />} />
-        {/* Phase 2 routes will be added here: /shortlist, /finalised, /start-planning */}
+        <Route path="/"               element={<HomePage />} />
+        <Route path="/vendor/:id"     element={<VendorPage />} />
+        <Route path="/shortlist"      element={<ShortlistPage />} />
+        <Route path="/finalised"      element={<FinalisedPage />} />
+        {/* Phase 3+ routes: /discussion, /start-planning, /stories, /vendors */}
       </Routes>
 
-      {/* Global Footer — shown on all pages */}
+      {/* Global Footer */}
       <Footer />
 
-      {/* ── Modal Layer ────────────────────────────────── */}
+      {/* ── Modal Layer ───────────────────────────── */}
       {activeModal?.type === 'saved'       && <SavedDrawer />}
       {activeModal?.type === 'compare'     && <CompareModal />}
       {activeModal?.type === 'notes'       && <NotesDrawer />}
@@ -53,7 +56,7 @@ export default function App() {
       {activeModal?.type === 'dashboard'   && <DashboardModal />}
       {activeModal?.type === 'itemDetail'  && <ItemDetailModal />}
 
-      {/* ── Toast Notification ─────────────────────────── */}
+      {/* ── Toast ─────────────────────────────────── */}
       {toast && (
         <div className="fixed bottom-6 right-6 z-[60] animate-bounceIn">
           <div className="bg-[#1C1917] text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-[#34302C]">
