@@ -88,6 +88,21 @@ function PackageAttachment({ item }) {
   );
 }
 
+function PhotoAttachment({ item }) {
+  return (
+    <div className="bg-white/80 rounded-xl overflow-hidden border border-black/10">
+      <div className="h-24 overflow-hidden relative">
+        <img src={item.url || item.image} alt="Attached photo" className="w-full h-full object-cover" />
+      </div>
+      {item.caption && (
+        <div className="px-3 py-2">
+          <p className="text-[10px] text-[#78716C]">{item.caption}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AttachmentCard({ attachment }) {
   if (!attachment) return null;
   const { type, item } = attachment;
@@ -99,6 +114,7 @@ export default function AttachmentCard({ attachment }) {
       {type === 'story'       && <StoryAttachment item={item} />}
       {type === 'inspiration' && <InspirationAttachment item={item} />}
       {type === 'package'     && <PackageAttachment item={item} />}
+      {type === 'photo'       && <PhotoAttachment item={item} />}
     </div>
   );
 }
