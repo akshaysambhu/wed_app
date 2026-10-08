@@ -20,6 +20,7 @@ import VendorsPage from './pages/VendorsPage.jsx';
 import HowItWorksPage from './pages/HowItWorksPage.jsx';
 import DiscussionPage from './pages/DiscussionPage.jsx';
 import PostRequestPage from './pages/PostRequestPage.jsx';
+import CrewBuilderPage from './pages/CrewBuilderPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -49,6 +50,7 @@ export default function App() {
         <Route path="/shortlist"      element={<ShortlistPage />} />
         <Route path="/finalised"      element={<FinalisedPage />} />
         <Route path="/start-planning" element={<StartPlanningPage />} />
+        <Route path="/crew-builder"   element={<CrewBuilderPage />} />
         <Route path="/stories"        element={<StoriesPage />} />
         <Route path="/vendors"        element={<VendorsPage />} />
         <Route path="/how-it-works"   element={<HowItWorksPage />} />
