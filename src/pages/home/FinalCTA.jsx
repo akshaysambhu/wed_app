@@ -1,47 +1,40 @@
+/**
+ * FinalCTA.jsx
+ * The final call to action banner on the homepage.
+ */
 import React from 'react';
-import { usePlanning } from '../../context/PlanningContext.jsx';
+import { Link } from 'react-router-dom';
 
 export default function FinalCTA() {
-  const { openModal } = usePlanning();
-
   return (
-    <section className="py-24 md:py-36 bg-[#FAF8F5] border-t border-[#EAE3DA] relative overflow-hidden text-center">
-      {/* Subtle Warm Background Glow */}
-      <div className="absolute inset-0 bg-radial-gradient from-[#F4EFEA] via-[#FAF8F5] to-[#FAF8F5] pointer-events-none" />
+    <section className="py-32 bg-[#1C1917] text-center px-4 relative overflow-hidden">
+      {/* Subtle background decoration */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-4xl opacity-10 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+      </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <span className="text-xs uppercase tracking-widest text-[#8C7E72] font-semibold mb-3 block">
-          Begin Today
-        </span>
-
-        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#1C1917] tracking-tight leading-tight mb-6">
-          Your moments are <br />
-          <span className="italic font-light text-[#6B3037]">worth planning.</span>
+      <div className="relative z-10 max-w-3xl mx-auto">
+        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-10 leading-tight">
+          Whatever you're celebrating,<br />
+          <span className="italic font-light text-[#D4C5B9]">make it unforgettable.</span>
         </h2>
-
-        <p className="max-w-xl mx-auto text-base sm:text-lg text-[#57534E] leading-relaxed mb-10">
-          Start with one idea. Save one moment. Build from there. Experience a calmer, more thoughtful approach to your wedding celebration.
-        </p>
-
+        
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button
-            onClick={() => openModal('dashboard')}
-            className="w-full sm:w-auto px-8 py-3.5 bg-[#1C1917] hover:bg-[#34302C] text-white text-xs sm:text-sm font-medium tracking-wide rounded-full shadow-md hover:shadow-lg transition-all active:scale-95"
+          <button 
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setTimeout(() => document.getElementById('start-program')?.scrollIntoView({ behavior: 'smooth' }), 500);
+            }}
+            className="w-full sm:w-auto px-8 py-4 bg-[#6B3037] text-white text-sm font-semibold rounded-full hover:bg-[#52242A] transition-colors shadow-lg"
           >
             Start Planning
           </button>
-          <a
-            href="#inspiration"
-            className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-[#F4EFEA] text-[#1C1917] text-xs sm:text-sm font-medium tracking-wide rounded-full border border-[#EAE3DA] shadow-sm transition-all"
+          <Link 
+            to="/stories" 
+            className="w-full sm:w-auto px-8 py-4 border border-[#44403C] text-white text-sm font-medium rounded-full hover:bg-white/5 transition-colors"
           >
-            Explore Inspiration
-          </a>
-        </div>
-
-        <div className="mt-12 flex items-center justify-center space-x-6 text-xs text-[#8C7E72]">
-          <span>✦ No pushy sales calls</span>
-          <span>✦ Private partner sharing</span>
-          <span>✦ Verified professionals only</span>
+            Explore Stories
+          </Link>
         </div>
       </div>
     </section>
