@@ -19,6 +19,7 @@ import StoriesPage from './pages/StoriesPage.jsx';
 import VendorsPage from './pages/VendorsPage.jsx';
 import HowItWorksPage from './pages/HowItWorksPage.jsx';
 import DiscussionPage from './pages/DiscussionPage.jsx';
+import PostRequestPage from './pages/PostRequestPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/vendors"        element={<VendorsPage />} />
         <Route path="/how-it-works"   element={<HowItWorksPage />} />
         <Route path="/discussion"     element={<DiscussionPage />} />
+        <Route path="/post-request"   element={<PostRequestPage />} />
       </Routes>
 
       {/* Global Footer */}

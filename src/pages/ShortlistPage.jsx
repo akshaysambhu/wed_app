@@ -84,80 +84,42 @@ function ShortlistVendorCard({ vendor }) {
 
 function LookingForSomethingElse() {
   const [query, setQuery] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-
   const suggestions = ['Traditional Chenda Team', 'Live Violinist', 'Wedding Car Decoration', 'Fireworks Display', 'Mehendi Artist'];
-
-  if (submitted) {
-    return (
-      <div className="text-center py-10">
-        <div className="w-14 h-14 bg-[#F4EFEA] rounded-full flex items-center justify-center text-2xl mx-auto mb-4">📋</div>
-        <h3 className="font-serif text-xl text-[#1C1917] mb-2">Request Posted!</h3>
-        <p className="text-sm text-[#78716C]">
-          Your request for <strong>"{query}"</strong> has been posted. Matching vendors will reach out to you.
-        </p>
-        <button onClick={() => { setSubmitted(false); setQuery(''); }}
-          className="mt-4 text-sm text-[#6B3037] hover:underline">Post another request</button>
-      </div>
-    );
-  }
 
   return (
     <div>
-      <div className="flex items-start gap-4 mb-6">
-        <div className="w-10 h-10 rounded-full bg-[#F4EFEA] flex items-center justify-center text-lg flex-shrink-0">🔍</div>
-        <div>
-          <h3 className="font-serif text-xl text-[#1C1917] mb-1">Looking for something else?</h3>
-          <p className="text-sm text-[#78716C]">
-            Need a service not listed above? Describe what you're looking for and we'll search the marketplace — or post a request for vendors to find you.
-          </p>
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-[#F4EFEA] flex items-center justify-center text-lg flex-shrink-0">🔍</div>
+          <div>
+            <h3 className="font-serif text-xl text-[#1C1917] mb-1">Looking for something else?</h3>
+            <p className="text-sm text-[#78716C] max-w-lg">
+              Need a service not listed above? Post a custom request to the marketplace and have specialized vendors reach out to you directly.
+            </p>
+          </div>
         </div>
-      </div>
-
-      {/* Search input */}
-      <div className="flex gap-3 mb-4">
-        <input
-          type="text"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="e.g. Traditional Chenda Team, Live Violinist, Wedding Fireworks..."
-          className="flex-1 border border-[#D4C5B9] rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none focus:border-[#6B3037] transition-colors placeholder:text-[#D4C5B9]"
-        />
-        <button
-          onClick={() => query.trim() && setSubmitted(true)}
-          className="px-5 py-3 bg-[#6B3037] text-white text-sm font-medium rounded-xl hover:bg-[#52242A] transition-colors"
+        
+        <Link 
+          to="/post-request" 
+          className="w-full md:w-auto text-center px-6 py-3.5 bg-[#1C1917] text-white text-sm font-semibold rounded-xl hover:bg-[#34302C] transition-colors whitespace-nowrap"
         >
-          Search
-        </button>
+          📢 Post Custom Request
+        </Link>
       </div>
 
-      {/* Suggestion pills */}
-      <div className="flex flex-wrap gap-2">
-        <p className="text-xs text-[#A39081] w-full">Popular requests:</p>
-        {suggestions.map(s => (
-          <button
-            key={s}
-            onClick={() => setQuery(s)}
-            className="text-xs text-[#6B5E53] bg-[#F4EFEA] border border-[#EAE3DA] px-3 py-1.5 rounded-full hover:border-[#6B3037] hover:text-[#6B3037] transition-colors"
-          >
-            {s}
-          </button>
-        ))}
-      </div>
-
-      {query && (
-        <div className="mt-5 p-4 bg-[#F4EFEA] rounded-xl border border-[#EAE3DA]">
-          <p className="text-sm text-[#57534E] mb-3">
-            No vendors found for <strong>"{query}"</strong> in our directory yet.
-          </p>
-          <button
-            onClick={() => setSubmitted(true)}
-            className="px-4 py-2.5 bg-[#1C1917] text-white text-xs font-semibold rounded-xl hover:bg-[#34302C] transition-colors"
-          >
-            📢 Post a Request to Marketplace
-          </button>
+      <div className="mt-6 pt-6 border-t border-[#EAE3DA]">
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-xs text-[#A39081]">Popular custom requests:</p>
+          {suggestions.map(s => (
+            <span
+              key={s}
+              className="text-xs text-[#6B5E53] bg-[#F4EFEA] border border-[#EAE3DA] px-3 py-1.5 rounded-full"
+            >
+              {s}
+            </span>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
