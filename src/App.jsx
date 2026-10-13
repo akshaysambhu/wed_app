@@ -22,6 +22,7 @@ import DiscussionPage from './pages/DiscussionPage.jsx';
 import PostRequestPage from './pages/PostRequestPage.jsx';
 import CrewBuilderPage from './pages/CrewBuilderPage.jsx';
 import ConnectPartnerPage from './pages/ConnectPartnerPage.jsx';
+import ExplorePage from './pages/ExplorePage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -48,6 +49,8 @@ export default function App() {
       <Routes>
         <Route path="/"                 element={<HomePage />} />
         <Route path="/vendor/:id"       element={<VendorPage />} />
+        <Route path="/explore"          element={<ExplorePage />} />
+        <Route path="/search"           element={<ExplorePage />} />
         <Route path="/shortlist"        element={<ShortlistPage />} />
         <Route path="/finalised"        element={<FinalisedPage />} />
         <Route path="/start-planning"   element={<StartPlanningPage />} />
