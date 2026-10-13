@@ -21,6 +21,7 @@ import HowItWorksPage from './pages/HowItWorksPage.jsx';
 import DiscussionPage from './pages/DiscussionPage.jsx';
 import PostRequestPage from './pages/PostRequestPage.jsx';
 import CrewBuilderPage from './pages/CrewBuilderPage.jsx';
+import ConnectPartnerPage from './pages/ConnectPartnerPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -45,17 +46,18 @@ export default function App() {
 
       {/* Page Routes */}
       <Routes>
-        <Route path="/"               element={<HomePage />} />
-        <Route path="/vendor/:id"     element={<VendorPage />} />
-        <Route path="/shortlist"      element={<ShortlistPage />} />
-        <Route path="/finalised"      element={<FinalisedPage />} />
-        <Route path="/start-planning" element={<StartPlanningPage />} />
-        <Route path="/crew-builder"   element={<CrewBuilderPage />} />
-        <Route path="/stories"        element={<StoriesPage />} />
-        <Route path="/vendors"        element={<VendorsPage />} />
-        <Route path="/how-it-works"   element={<HowItWorksPage />} />
-        <Route path="/discussion"     element={<DiscussionPage />} />
-        <Route path="/post-request"   element={<PostRequestPage />} />
+        <Route path="/"                 element={<HomePage />} />
+        <Route path="/vendor/:id"       element={<VendorPage />} />
+        <Route path="/shortlist"        element={<ShortlistPage />} />
+        <Route path="/finalised"        element={<FinalisedPage />} />
+        <Route path="/start-planning"   element={<StartPlanningPage />} />
+        <Route path="/crew-builder"     element={<CrewBuilderPage />} />
+        <Route path="/connect-partner"  element={<ConnectPartnerPage />} />
+        <Route path="/stories"          element={<StoriesPage />} />
+        <Route path="/vendors"          element={<VendorsPage />} />
+        <Route path="/how-it-works"     element={<HowItWorksPage />} />
+        <Route path="/discussion"       element={<DiscussionPage />} />
+        <Route path="/post-request"     element={<PostRequestPage />} />
       </Routes>
 
       {/* Global Footer */}

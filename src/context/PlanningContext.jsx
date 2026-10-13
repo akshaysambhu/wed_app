@@ -115,12 +115,80 @@ export function PlanningProvider({ children }) {
     catch { return SEED_MESSAGES; }
   });
 
+  // ─── PARTNER CONNECTION STATE ─────────────────────────────────────────────
+  const [yourName, setYourName] = useState('Midhun');
+  const [partnerConnection, setPartnerConnection] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('pmm_partner_connection'));
+      return stored || {
+        status: 'connected', // default active connection with partner
+        partnerName: 'Alex',
+        partnerUsername: '@alex123',
+        partnerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+        connectedAt: '12 Oct 2026',
+      };
+    }
+    catch {
+      return {
+        status: 'connected',
+        partnerName: 'Alex',
+        partnerUsername: '@alex123',
+        partnerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+        connectedAt: '12 Oct 2026',
+      };
+    }
+  });
+
+  const partnerName = partnerConnection.partnerName || 'Alex';
+
+  const sendPartnerInvite = (target) => {
+    const username = typeof target === 'string' ? (target.startsWith('@') ? target : `@${target}`) : (target.username || '@alex123');
+    const name = typeof target === 'string' ? target.replace('@', '') : (target.name || 'Alex');
+    const avatar = (typeof target === 'object' && target.avatar) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';
+
+    setPartnerConnection({
+      status: 'pending',
+      partnerName: name.charAt(0).toUpperCase() + name.slice(1),
+      partnerUsername: username,
+      partnerAvatar: avatar,
+      sentAt: Date.now(),
+    });
+    showToast(`Invitation sent to ${username}!`);
+  };
+
+  const acceptPartnerInvite = () => {
+    setPartnerConnection(prev => ({
+      ...prev,
+      status: 'connected',
+      connectedAt: 'Just now',
+    }));
+    showToast(`Partner connected! You can now build your celebration together.`);
+  };
+
+  const declinePartnerInvite = () => {
+    setPartnerConnection({
+      status: 'none',
+      partnerName: '',
+      partnerUsername: '',
+      partnerAvatar: '',
+    });
+    showToast('Partner invitation declined.');
+  };
+
+  const disconnectPartner = () => {
+    setPartnerConnection({
+      status: 'none',
+      partnerName: '',
+      partnerUsername: '',
+      partnerAvatar: '',
+    });
+    showToast('Partner disconnected.');
+  };
+
   // ─── DISCUSSION WINDOW STATE ──────────────────────────────────────────────
   const [discussionOpen, setDiscussionOpen] = useState(false);
   const [discussionMinimized, setDiscussionMinimized] = useState(false);
   const [discussionAttachment, setDiscussionAttachment] = useState(null);
-  const [partnerName] = useState('Rohan');
-  const [yourName] = useState('Anjali');
 
   // ─── MODALS ───────────────────────────────────────────────────────────────
   const [activeModal, setActiveModal] = useState(null);
@@ -134,6 +202,7 @@ export function PlanningProvider({ children }) {
   useEffect(() => { try { localStorage.setItem('pmm_notes', JSON.stringify(notes)); } catch {} }, [notes]);
   useEffect(() => { try { localStorage.setItem('pmm_dashboard', JSON.stringify(dashboardState)); } catch {} }, [dashboardState]);
   useEffect(() => { try { localStorage.setItem('pmm_messages', JSON.stringify(messages)); } catch {} }, [messages]);
+  useEffect(() => { try { localStorage.setItem('pmm_partner_connection', JSON.stringify(partnerConnection)); } catch {} }, [partnerConnection]);
 
   // ─── TOAST ────────────────────────────────────────────────────────────────
   const showToast = (message) => {
@@ -304,7 +373,9 @@ export function PlanningProvider({ children }) {
       unreadCount,
       discussionOpen, discussionMinimized, discussionAttachment,
       openDiscussion, closeDiscussion, minimizeDiscussion,
-      partnerName, yourName,
+      partnerName, yourName, setYourName,
+      // Partner Connection
+      partnerConnection, sendPartnerInvite, acceptPartnerInvite, declinePartnerInvite, disconnectPartner,
       // Modals
       activeModal, openModal, closeModal,
       // Toast

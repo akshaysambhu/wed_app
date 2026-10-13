@@ -66,8 +66,8 @@ export default function Navbar() {
               </svg>
             </button>
             
-            <button 
-              onClick={() => openDiscussion()}
+            <Link 
+              to="/connect-partner"
               className="text-sm font-medium text-[#1C1917] flex items-center gap-2 hover:opacity-80 transition-opacity"
             >
               <div className="w-6 h-6 rounded-full bg-[#EAE3DA] flex items-center justify-center text-[10px]">
@@ -77,7 +77,7 @@ export default function Navbar() {
               {unreadCount > 0 && (
                 <span className="w-2 h-2 rounded-full bg-[#6B3037]" />
               )}
-            </button>
+            </Link>
 
             <Link 
               to="/crew-builder" 

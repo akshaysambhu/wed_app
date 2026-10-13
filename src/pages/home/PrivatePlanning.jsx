@@ -3,6 +3,7 @@
  * New explainer section for Private Couple Planning
  */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { usePlanning } from '../../context/PlanningContext.jsx';
 
 export default function PrivatePlanning() {
@@ -71,12 +72,20 @@ export default function PrivatePlanning() {
               ))}
             </ul>
 
-            <button 
-              onClick={() => openDiscussion()}
-              className="px-8 py-4 bg-[#1C1917] text-white font-semibold rounded-full hover:bg-[#34302C] transition-colors inline-flex items-center gap-2"
-            >
-              <span className="text-lg">💬</span> Connect Partner
-            </button>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link 
+                to="/connect-partner"
+                className="px-8 py-4 bg-[#1C1917] text-white font-semibold rounded-full hover:bg-[#34302C] transition-colors inline-flex items-center gap-2 shadow-md"
+              >
+                <span className="text-lg">👥</span> Connect Partner
+              </Link>
+              <button
+                onClick={() => openDiscussion()}
+                className="px-6 py-4 bg-white text-[#1C1917] font-semibold rounded-full hover:bg-[#FAF8F5] transition-colors inline-flex items-center gap-2 border border-[#EAE3DA]"
+              >
+                <span>💬</span> Open Discussion
+              </button>
+            </div>
           </div>
 
         </div>
