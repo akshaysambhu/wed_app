@@ -23,12 +23,15 @@ export default function Navbar() {
           </div>
 
           {/* Center Navigation */}
-          <div className="hidden lg:flex items-center space-x-7">
+          <div className="hidden lg:flex items-center space-x-6">
             <Link to="/explore" className="text-sm font-medium text-[#44403C] hover:text-[#6B3037] transition-colors flex items-center gap-1">
               <span>🔍</span> Explore
             </Link>
             <Link to="/vendors" className="text-sm font-medium text-[#44403C] hover:text-[#6B3037] transition-colors">
               Vendors
+            </Link>
+            <Link to="/community-requests" className="text-sm font-medium text-[#44403C] hover:text-[#6B3037] transition-colors flex items-center gap-1">
+              <span>📢</span> Requests
             </Link>
             <Link to="/stories" className="text-sm font-medium text-[#44403C] hover:text-[#6B3037] transition-colors">
               Stories

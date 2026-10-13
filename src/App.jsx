@@ -23,6 +23,7 @@ import PostRequestPage from './pages/PostRequestPage.jsx';
 import CrewBuilderPage from './pages/CrewBuilderPage.jsx';
 import ConnectPartnerPage from './pages/ConnectPartnerPage.jsx';
 import ExplorePage from './pages/ExplorePage.jsx';
+import CommunityRequestsPage from './pages/CommunityRequestsPage.jsx';
 
 // Modals
 import SavedDrawer from './components/modals/SavedDrawer.jsx';
@@ -47,20 +48,22 @@ export default function App() {
 
       {/* Page Routes */}
       <Routes>
-        <Route path="/"                 element={<HomePage />} />
-        <Route path="/vendor/:id"       element={<VendorPage />} />
-        <Route path="/explore"          element={<ExplorePage />} />
-        <Route path="/search"           element={<ExplorePage />} />
-        <Route path="/shortlist"        element={<ShortlistPage />} />
-        <Route path="/finalised"        element={<FinalisedPage />} />
-        <Route path="/start-planning"   element={<StartPlanningPage />} />
-        <Route path="/crew-builder"     element={<CrewBuilderPage />} />
-        <Route path="/connect-partner"  element={<ConnectPartnerPage />} />
-        <Route path="/stories"          element={<StoriesPage />} />
-        <Route path="/vendors"          element={<VendorsPage />} />
-        <Route path="/how-it-works"     element={<HowItWorksPage />} />
-        <Route path="/discussion"       element={<DiscussionPage />} />
-        <Route path="/post-request"     element={<PostRequestPage />} />
+        <Route path="/"                   element={<HomePage />} />
+        <Route path="/vendor/:id"         element={<VendorPage />} />
+        <Route path="/explore"            element={<ExplorePage />} />
+        <Route path="/search"             element={<ExplorePage />} />
+        <Route path="/community-requests" element={<CommunityRequestsPage />} />
+        <Route path="/requests"           element={<CommunityRequestsPage />} />
+        <Route path="/post-request"       element={<CommunityRequestsPage />} />
+        <Route path="/shortlist"          element={<ShortlistPage />} />
+        <Route path="/finalised"          element={<FinalisedPage />} />
+        <Route path="/start-planning"     element={<StartPlanningPage />} />
+        <Route path="/crew-builder"       element={<CrewBuilderPage />} />
+        <Route path="/connect-partner"    element={<ConnectPartnerPage />} />
+        <Route path="/stories"            element={<StoriesPage />} />
+        <Route path="/vendors"            element={<VendorsPage />} />
+        <Route path="/how-it-works"       element={<HowItWorksPage />} />
+        <Route path="/discussion"         element={<DiscussionPage />} />
       </Routes>
 
       {/* Global Footer */}
